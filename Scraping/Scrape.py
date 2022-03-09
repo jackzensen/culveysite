@@ -17,6 +17,8 @@ import aiohttp
 # the preview for adding to your calendar (culvers.com/fotd-add-to-calendar/loc/date)
 
 def scrape(loc):
+    print('I scraped, delete this and the next line trin')
+    exit(1)
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     TIMEOUT = 5
     s = requests.Session()
