@@ -1,28 +1,25 @@
+#!/usr/bin/python
 from importlib.resources import path
-import psycopg2
-# print('hello')
-
-# from ..Scraping.Scrape import *
-
-# import sys
+# import psycopg2
+import sys
+import os
 # print(sys.path)
 # sys.path.append("..")
 # import Scraping.Scrape
-from ..Scraping.Scrape import scrape
-# from Scraping import scrape
-# print(sys.path)
-# from Scraping import Scrape
-# from Scraping import *
-# from .Scraping import *
-# from Scraping.Scrape import scrape
-# import Scraping.Scrape
+# SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# sys.path.append(os.path.dirname(SCRIPT_DIR))
+lib_path = os.path.abspath('../') 
+if lib_path not in sys.path:
+    sys.path.append(lib_path)
+# lib_path = os.path.abspath(os.path.join(__file__, '..', '..', '..', 'lib'))
+# sys.path.append(lib_path)
+from Scraping.Scrape import scrape
 
 # s = scrape()
 # print(s)
 # print('hicls')
 # Configure to open a SQL database
 
-#!/usr/bin/python
 from config import config
 
 def connect():
@@ -49,6 +46,7 @@ def get_version(cur):
 if __name__ == '__main__':
     conn = None
     try:
+        exit(1)
         conn = connect()
 
         # create a cursor
