@@ -4,6 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// let retries = 3;
+// while (retries) {
+//   try{
+//     await 
+//   }
+// }
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

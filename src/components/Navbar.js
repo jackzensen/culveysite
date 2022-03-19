@@ -48,7 +48,7 @@ window.addEventListener('resize', showButton)
                     </Link>
                   </li>
                 </ul>
-                {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>} */}
+                {/* {button && <Button buttonStyle='btn--outline'>log in</Button>} */}
             </div>
         </nav>
 

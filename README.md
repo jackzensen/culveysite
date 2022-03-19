@@ -1,70 +1,44 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Culvers Flavor Scraper
 
-## Available Scripts
+This program uses python's requests module to pull the month's flavors of the day from each Culver's Restaurant location's website. The flavors of each address are stored within a PostGreSQL database. The program also uses react to create a website which displays the daily flavors.
 
-In the project directory, you can run:
 
-### `npm start`
+## Requirements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In this project, the additional softwares were used:
+Node.js v14.16.1
+react 17.0.2
+Docker 20.10.11
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+***
 
-### `npm test`
+### How to use
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Website
 
-### `npm run build`
+To start the website locally on your device, type `npm start` in the command line. If successful, it should automatically direct your browser to http://localhost:3000. Further information can be found in README-react.md
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+PostGreSQL
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To start your own PostGreSQL database, [download][1] Docker and navigate to the Databasing folder using `cd Databasing` in the terminal. Fromt here, type `docker compose up -d` and it should launch as a container. In your web browser, navigate to `localhost:5050` and log in using the PGADMIN username and password set in your .env file. Right click the server logo to create a server. Name your server whatever you'd like, and in the connections tab set the host name to be pg_container and the maintenance db to `db`. Fill in the Postgres username/password set in your env file and save. 
 
-### `npm run eject`
+To create a blank table, navigate through the filetree to the dataase you created, right click on it, and select query tool. Copy/paste the contents of Databasing/Culver.sql into the prompt and run it.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<!-- To start your own PostGreSQL database, [download][1] Docker and navigate to the Databasing folder using `/cd Databasing` in terminal. From there, type `docker build -t culvers-db ./` If successful, `docker images -a` should list culvers-db as an image. We can run the container by typing `docker run -d --name culvers-db-container -p 5432:5432 culvers-db` -->
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<!-- To create your own local database, [download][1] PGAdmin and create your own database using the schema:
+    `
+    <!-- CREATE TABLE IF NOT EXISTS public."New_flavors"
+    (
+        "Address" text COLLATE pg_catalog."default" NOT NULL,
+        "Date" date,
+        "Location Index" integer NOT NULL,
+        "Location Name" text COLLATE pg_catalog."default" NOT NULL,
+        "Flavor" text COLLATE pg_catalog."default" NOT NULL
+    )` --> 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<!-- [1]: <https://www.postgresql.org/download/> "download" -->
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[1]: <https://www.docker.com/products/docker-desktop>
