@@ -4,6 +4,7 @@ import psycopg
 import sys
 import os
 print(sys.path)
+import psycopg2
 
 lib_path = os.path.abspath('../') 
 if lib_path not in sys.path:
@@ -23,85 +24,65 @@ conn_str = 'dbname=' + PGDATABASE + ' ' + 'user=' + POSTGRES_USER + ' ' + 'host=
 # with psycopg.connect("dbname=PGDATABASE user=POSTGRES_USER host=localhost port=5432 password=POSTGRES_PASSWORD") as conn:
 # print(PGDATABASE, POSTGRES_USER, PORT, POSTGRES_PASSWORD)
 print('connecting')
-# with psycopg.connect(
-#                         dbname=PGDATABASE,
-#                         user=POSTGRES_USER,
-#                         host='192.168.0.2',
-#                         # host='0.0.0.0',
-#                         port=5432, 
-#                         password=POSTGRES_PASSWORD,
-#                         ) as conn:
-with psycopg.connect(
-    dbname='db',
-    user='Sewagekat',
-    password='spasmellsgood!',
-    port=5432,
-    host='192.168.0.2',
-) as conn:
-    print('connected, probably')
-try:
-    print('connecting....')
-    
-    
-    
-    
-    
-    # with psycopg.connect(conn_str) as conn:
-    # with psycopg.connect(
-    #                      dbname=PGDATABASE,
-    #                      user=POSTGRES_USER,
-    #                      host='172.20.0.2',
-    #                     # host='0.0.0.0',
-    #                      port=5432, 
-    #                      password=POSTGRES_PASSWORD,
-    #                      ) as conn:
-    with psycopg.connect(
-        dbname='db',
-        user='Sewagekat',
-        password='hispa!',
-        port=5432,
-        host='192.168.0.2',
-        
-    ) as conn:
-        print('connected')
-        try:
-            print('test2')
-            with conn.cursor() as cur:
-                try:
-                    cur.execute("""
-                        CREATE TABLE test (
-                            id serial PRIMARY KEY,
-                            num integer,
-                            data text)
-                        """)
-                    # Pass data to fill a query placeholders and let Psycopg perform # the correct conversion (no SQL injections!)
-                    cur.execute(
-                        "INSERT INTO test (num, data) VALUES (%s, %s)",
-                        (100, "abc'def"))
-                # Query the database and obtain data as Python objects.
-                    cur.execute("SELECT * FROM test")
-                    cur.fetchone()
-                    print('errororororor')
-                # will return (1, 100, "abc'def")
-                # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
-                # of several records, or even iterate on the cursor
-                    for record in cur:
-                        print(record)
 
-                    # Make the changes to the database persistent
-                    conn.commit()
-                    conn.close()
-                except:
-                    print('test table created')
-        except:
-            print('failure')
+try:
+    conn = psycopg2.connect(
+        dbname='postgres',
+        user=POSTGRES_USER,
+        password=POSTGRES_PASSWORD,
+        port=5432,
+        # host='192.168.0.2',
+        host='localhost',
+        # host='0.0.0.0'
+)
+    print('connection established')
+except Exception as e:
+    print(e)
+
+
+
+with conn.cursor() as cur:
+    for i in range(1, 2):
+        try:
+            result = scrape(i)
+            print(result)
             
+            for flavor in result:
+                print(flavor)
+        except Exception as e:
+            print(e)
+        
+    # test function
+    # try:
+    #     cur.execute("""
+    #         CREATE TABLE test (
+    #             id serial PRIMARY KEY,
+    #             num integer,
+    #             data text)
+    #         """)
+    #     # Pass data to fill a query placeholders and let Psycopg perform # the correct conversion (no SQL injections!)
+    #     cur.execute(
+    #         "INSERT INTO test (num, data) VALUES (%s, %s)",
+    #         (100, "abc'def"))
+    #     # Query the database and obtain data as Python objects.
+    #     cur.execute("SELECT * FROM test")
+    #     cur.fetchone()
+
+    #         # will return (1, 100, "abc'def")
+    #         # You can use `cur.fetchmany()`, `cur.fetchall()` to return a list
+    #         # of several records, or even iterate on the cursor
+    #     for record in cur:
+    #         print(record)
+
+    #     # Make the changes to the database persistent
+    #     conn.commit()
+    #     conn.close()
+
             
+    #     print('table created')
             
-            
-            
-except:
-    print('FAIL')
+    # except Exception as e:
+    #     print(e)
 # from config import config
 
 # def connect():
