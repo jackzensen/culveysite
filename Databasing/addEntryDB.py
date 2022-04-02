@@ -10,7 +10,6 @@ lib_path = os.path.abspath('../')
 if lib_path not in sys.path:
     sys.path.append(lib_path)
 from Scraping.Scrape import scrape
-# print(scrape(1))
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -20,14 +19,12 @@ PORT = int(os.getenv('POSTGRES_PORT'))
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 conn_str = 'dbname=' + PGDATABASE + ' ' + 'user=' + POSTGRES_USER + ' ' + 'host=localhost' + ' ' + 'port=' + str(PORT) + ' ' + 'password=' + POSTGRES_PASSWORD
 # print(conn_str)
-# print("conn_str:", conn_str)
-# with psycopg.connect("dbname=PGDATABASE user=POSTGRES_USER host=localhost port=5432 password=POSTGRES_PASSWORD") as conn:
-# print(PGDATABASE, POSTGRES_USER, PORT, POSTGRES_PASSWORD)
+
 print('connecting')
 
 try:
     conn = psycopg2.connect(
-        dbname='postgres',
+        dbname='culvers_flavor_db',
         user=POSTGRES_USER,
         password=POSTGRES_PASSWORD,
         port=5432,
@@ -42,15 +39,31 @@ except Exception as e:
 
 
 with conn.cursor() as cur:
-    for i in range(1, 2):
+    for i in range(628, 630):
         try:
             result = scrape(i)
-            print(result)
+            result = result.popitem()
+            Address = result[0]
+            for DateFlavor in result[1]:
+                # print(DateFlavor)
+                Date = list(DateFlavor.keys())[0]
+                Flavor = list(DateFlavor.values())[0]
+                cur.execute("INSERT INTO flavors (address, date, location_index, flavor) VALUES (%s, %s, %s, %s)", (Address, Date, i, Flavor))
+                # print('result saved.')
+            # print(result)
+            conn.commit()
+            print('result fetched')
             
-            for flavor in result:
-                print(flavor)
+            # for flavor in result:
+            #     print('location:', address)
+            #     print('result0', result[1], )
+            #     print('flavor0', flavor[1])
+                # Address, date, location index, location name, flavor
+            conn.commit()
         except Exception as e:
+            print('Error occured')
             print(e)
+    conn.close()
         
     # test function
     # try:

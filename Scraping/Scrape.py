@@ -58,6 +58,8 @@ def scrape(loc):
         print(f'error occured for location {loc}')  
         errors.append(loc)  
     print("Errors occured at locations:", errors)
+    
+    # print(Addr_list)
     return Addr_list
 
 # print(scrape(99))

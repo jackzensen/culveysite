@@ -1,9 +1,9 @@
-CREATE TABLE IF NOT exists New_flavors
+CREATE TABLE IF NOT exists flavors
 (
-    "Address" text COLLATE pg_catalog."default" NOT NULL,
-    "Date" date,
-    "Location Index" integer NOT NULL,
-    "Location Name" text COLLATE pg_catalog."default" NOT NULL,
-    "Flavor" text COLLATE pg_catalog."default" NOT NULL
+    "address" text COLLATE pg_catalog."default" NOT NULL,
+    "date" date,
+    "location_index" integer NOT NULL,
+    -- "Location_Name" text COLLATE pg_catalog."default" NOT NULL,
+    "flavor" text COLLATE pg_catalog."default" NOT NULL
 )
 -- CREATE TABLE IF NOT EXISTS public."New_flavors"
