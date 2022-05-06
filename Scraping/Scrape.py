@@ -68,6 +68,15 @@ def scrape(loc):
 
 
 
+
+
+
+
+
+
+
+
+# TO DO
 # Start of future implementation to significantly reduce runtime by sending requests to multiple locations at a time. (For larger scraping needs)
 # async def main():
 

@@ -42,3 +42,13 @@ To create a blank table, navigate through the filetree to the dataase you create
 <!-- [1]: <https://www.postgresql.org/download/> "download" -->
 
 [1]: <https://www.docker.com/products/docker-desktop>
+
+To clean duplicate values from the database, run:
+`
+	SELECT address, date, location_index, flavor FROM
+	(SELECT address, date, location_index, flavor, 
+	ROW_NUMBER() OVER
+	(PARTITION BY (location_index, date) ORDER BY location_index DESC) rn
+	FROM flavors
+	) temp WHERE rn = 1;
+`
