@@ -17,7 +17,7 @@ Docker 20.10.11
 
 Website
 
-To start the website locally on your device, install dependencies using `npm install react-chartjs-2 chart.js` and finally `npm start` in the command line. If successful, it should automatically direct your browser to http://localhost:3000. Further information can be found in README-react.md
+To start the website locally on your device, install dependencies and change your current working directory to frontend. Boot the api server using `node src/api/Api.js` and finally `npm start` in the command line. If successful, it should automatically direct your browser to http://localhost:3000. Further information can be found in README-react.md
 
 
 PostGreSQL
