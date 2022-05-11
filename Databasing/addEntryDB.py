@@ -38,7 +38,7 @@ except Exception as e:
     print(e)
 
 with conn.cursor() as cur:
-    for i in range(2, 3):
+    for i in range(1, 850):
         try:
             result = scrape(i)
             result = result.popitem()

@@ -16,10 +16,51 @@ import { Chart, registerables } from 'chart.js'
 // import patternomaly
 // import {draw, generate} from 'patternomaly'
 // Chart.register(...registerables);
+import ReactECharts from 'echarts-for-react';
 
 const axios = require('axios').default;
 
 function Metrics() {
+    const Page: React.FC = () => {
+        const option = {
+            title: {
+                text: 'Culvers Flavors',
+                subtext: 'Number of restaurants',
+                x: 'center'
+            },
+            tooltip:{
+                trigger:'item',
+                formatter:"{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: {keys}
+            },
+            series : [
+                {
+                name : 'Culvers Flavor Chart',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data:[
+                    {value:335, name:'直接访问'},
+                    {value:310, name:'邮件营销'},
+                    {value:234, name:'联盟广告'},
+                    {value:135, name:'视频广告'},
+                    {value:1548, name:'搜索引擎'}
+                  ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0,0,0,0.5)'
+                    }
+                }
+                }
+            ]
+        }
+
     const [startDate, setStartDate] = useState(new Date());
     // const [flavorData, setFlavorData] = useState(0);
     const handleChange = (date) => {
@@ -71,7 +112,7 @@ function Metrics() {
                         }]
                     }
                 })
-                flavorChart.update()
+                // flavorChart.update()
 
                 // var img = new Image();
                 // // img.src = 'https://cdn.vectorstock.com/i/1000x1000/60/16/colorful-bright-rainbow-spiral-background-logo-des-vector-3476016.webp';
@@ -153,12 +194,21 @@ function Metrics() {
             
             
             <canvas id="flavorChart" width="400" height="400"></canvas>
+            <ReactECharts
+                option={option}
+                style={{ height: 400 }}
+                onChartReady={onChartReady}
+                onEvents={{
+                    'click': onChartClick,
+                    'legendselectchanged': onChartLegendselectchanged
+                }}
+            />
             {/* <PieChart /> */}
 
         </div>
      )}
 
-
+            }
 export default Metrics;
 
 
