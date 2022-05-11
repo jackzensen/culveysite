@@ -59,5 +59,5 @@ To populate the database (only needed to do once a month to retrieve flavors), w
 ` -->
 
 #### Planned Updates
-Markup : * Add color to graphs
-         *Change database populating algorithm to detect new culvers restaurants
+ * Add color to graphs
+ * Change database populating algorithm to detect new culvers restaurants
