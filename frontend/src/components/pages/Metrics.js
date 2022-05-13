@@ -8,58 +8,15 @@ import { useState, useEffect } from 'react';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { VictoryPie } from 'victory';
-// import 'chartjs-plugin-colorschemes';
 import { Chart, registerables } from 'chart.js'
-// import PieChart from '../Charts/PieChart'
 
-// import patternomaly
-// import {draw, generate} from 'patternomaly'
-// Chart.register(...registerables);
 import ReactECharts from 'echarts-for-react';
-
+import 'chartjs-plugin-colorschemes';
 const axios = require('axios').default;
 
+
 function Metrics() {
-    const Page: React.FC = () => {
-        const option = {
-            title: {
-                text: 'Culvers Flavors',
-                subtext: 'Number of restaurants',
-                x: 'center'
-            },
-            tooltip:{
-                trigger:'item',
-                formatter:"{a} <br/>{b}: {c} ({d}%)"
-            },
-            legend: {
-                orient: 'vertical',
-                left: 'left',
-                data: {keys}
-            },
-            series : [
-                {
-                name : 'Culvers Flavor Chart',
-                type: 'pie',
-                radius: '55%',
-                center: ['50%', '60%'],
-                data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1548, name:'搜索引擎'}
-                  ],
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0,0,0,0.5)'
-                    }
-                }
-                }
-            ]
-        }
+
 
     const [startDate, setStartDate] = useState(new Date());
     // const [flavorData, setFlavorData] = useState(0);
@@ -88,70 +45,41 @@ function Metrics() {
                     };
                 }
 
+                
+
+
 
                 console.log("flavorcounts: ", flavorCounts)
-                var keys = Object.keys(flavorCounts)
-                var values = Object.values(flavorCounts);
-                console.log(values)
 
-                console.log(keys)
-
-
-                // // <script>
-                // // Create chart
-
+                // Sort the results
+                var sorted = Object.keys(flavorCounts).map(function(key){
+                    return [key, flavorCounts[key]];
+                });
+                sorted.sort(function(first,second){
+                    return second[1] - first[1]
+                })
+                
+                var keyList = []
+                var valueList = [];
+                for (let i = 0; i < sorted.length; i++){
+                    keyList.push(sorted[i][0])
+                    valueList.push(sorted[i][1])
+                }
+                console.log('keylist:', keyList)
+                console.log('valuelist:' , valueList)
 
                 var ctx = document.getElementById('flavorChart');
                 var flavorChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
-                        labels: keys,
+                        labels: keyList,
                         datasets: [{
                             label: "Flavor",
-                            data: values
+                            data: valueList
                         }]
                     }
                 })
-                // flavorChart.update()
 
-                // var img = new Image();
-                // // img.src = 'https://cdn.vectorstock.com/i/1000x1000/60/16/colorful-bright-rainbow-spiral-background-logo-des-vector-3476016.webp';
-                // img.src = 'https://www.truevalue.com/media/magefan_blog/color-wheel-hero_1.jpg';
-                // // img.src = 'https://example.com/my_image.png';
-                // img.onload = function() {
-                    // var ctx = document.getElementById('flavorChart').getContext('2d');
-                    // // var fillPattern = ctx.createPattern(img, 'repeat');
-
-                    // // if (flavorChart){
-                    // //     flavorChart.destroy()
-                    // // }
-
-                    // var flavorChart = new Chart(ctx, {
-                    //     type: 'pie',
-                    //     data: {
-                    //         labels: keys,
-                    //         datasets: [{
-                    //             label: "Flavor",
-                    //             data: values,
-                    //             // backgroundColor: fillPattern,
-                    //             // backgroundColor: [
-                    //             //     pattern.draw('square', '#1f77b4'),
-                    //             //     pattern.draw('circle', '#ff7f0e'),
-                    //             //     pattern.draw('diamond', '#2ca02c'),
-                    //             //     pattern.draw('zigzag-horizontal', '#17becf'),
-                    //             //     pattern.draw('triangle', 'rgb(255, 99, 132, 0.4)') // with opacity
-                    //             //   ],
-                    //             borderWidth: 1
-                    //         }]
-
-                    //     },
-
-                    // });
-                //     flavorChart.update()
-                // };
-
-                // </script> 
-                // var PieChart = <VictoryPie data={flavorCounts} />
 
 
             }).catch((error) => {
@@ -192,23 +120,12 @@ function Metrics() {
 
             </div>
             
-            
-            <canvas id="flavorChart" width="400" height="400"></canvas>
-            <ReactECharts
-                option={option}
-                style={{ height: 400 }}
-                onChartReady={onChartReady}
-                onEvents={{
-                    'click': onChartClick,
-                    'legendselectchanged': onChartLegendselectchanged
-                }}
-            />
-            {/* <PieChart /> */}
-
+            <div class="chart-container" >
+                <canvas id="flavorChart" width="100" height="100"></canvas>
+            </div>
         </div>
      )}
 
-            }
 export default Metrics;
 
 

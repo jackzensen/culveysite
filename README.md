@@ -39,14 +39,14 @@ To populate the database (only needed to do once a month to retrieve flavors), w
 <!-- 
 To clean duplicate values from the database, run:
 `
-	SELECT address, date, location_index, flavor FROM
-	(SELECT address, date, location_index, flavor, 
-	ROW_NUMBER() OVER
-	(PARTITION BY (location_index, date) ORDER BY location_index DESC) rn
-	FROM flavors
-	) temp WHERE rn = 1;
+ DELETE FROM
+     flavors a
+         USING flavors b
+ WHERE
+     a.tbl_id < b.tbl_id
+     AND a.date = b.date
+ 	AND a.location_index = b.location_index;
 ` -->
 Planned Updates
 
-Markup : * Add color to graphs
-         *Change database populating algorithm to detect new culvers restaurants
+Markup : *Change database populating algorithm to detect new culvers restaurants
